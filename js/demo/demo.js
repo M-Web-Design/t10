@@ -218,7 +218,6 @@ window.addEventListener("DOMContentLoaded", () => {
 // --------------------------------------------- //
 // Logo Color Switch Start
 // --------------------------------------------- //
-
 document.addEventListener("DOMContentLoaded", function () {
   const logo = document.getElementById("logo");
   const body = document.body;
@@ -232,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 切換 Logo
     if (logo) {
-      logo.src = isLightMode ? "img/logo-light.svg" : "img/logo-dark.svg";
+      logo.src = isLightMode ? "img/logo-dark.svg" : "img/logo-light.svg";
     }
 
     // 切換所有 1.webp~6.webp 圖片
