@@ -227,33 +227,39 @@ document.addEventListener("DOMContentLoaded", function () {
   const themeImages = document.querySelectorAll(".theme-img");
 
   function updateImages() {
-    const isLightMode = body.classList.contains("light-mode");
+    const isLightMode = body.getAttribute("color-scheme") === "light";
 
     // 切換 Logo
     if (logo) {
-      logo.src = isLightMode ? "img/logo-light.svg" : "img/logo-dark.svg";
+      logo.src = isLightMode ? "img/logo-dark.svg" : "img/logo-light.svg";
     }
 
-    // 切換所有圖片 (根據 HTML 內的數字)
+    // 切換所有 1.webp~6.webp 圖片
     themeImages.forEach((img) => {
       let currentSrc = img.src; // 獲取原始圖片路徑
       let baseName = currentSrc.replace(/-(dark|light)\.webp$/, ""); // 移除 -dark / -light
       img.src = isLightMode
-        ? `${baseName}-dark.webp`
-        : `${baseName}-light.webp`;
+        ? `${baseName}-light.webp`
+        : `${baseName}-dark.webp`;
     });
+  }
+
+  function updateTheme() {
+    const isLightMode = body.getAttribute("color-scheme") === "light";
+    body.setAttribute("color-scheme", isLightMode ? "dark" : "light");
+    updateImages(); // 每次切換模式時更新圖片
   }
 
   // 監聽切換按鈕
   if (themeToggle) {
     themeToggle.addEventListener("click", function () {
-      body.classList.toggle("light-mode");
-      updateImages();
+      updateTheme();
     });
   }
 
-  // 頁面載入時先執行一次
-  updateImages();
+  // ✅ 預設每次重新整理時都從深色開始
+  body.setAttribute("color-scheme", "dark");
+  updateImages(); // 確保初始圖片顯示正確
 });
 
 // --------------------------------------------- //
